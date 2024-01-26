@@ -84,12 +84,19 @@ class JoblyApi {
 
   static async registerUser(username, password, firstName, lastName, email) {
     const data = {username, password, firstName, lastName, email};
+
+
+    // FIXME: here's a fix!
+    let res;
     try {
-      const res = await this.request(`auth/register`, data, "POST");
-      token = res.token;
-      return { token };
+      res = await this.request(`auth/register`, data, "POST");
+      JoblyApi.token = res.token;
+      return { username, firstName, lastName, email };
+
     } catch (err) {
-      return { errors: [...res.error.message] };
+      console.log('This is err FORREAL: ', err);
+      console.log('{errors: [...err] }', {errors: [...err]});
+      return { errors: [...err] };
     }
   }
 
@@ -98,22 +105,15 @@ class JoblyApi {
 
   static async loginUser(username, password) {
     const data = { username, password };
+
+
+    // FIXME: here's a fix!
+    let res;
     try {
-      const res = await this.request(`auth/token`, data, "POST");
+      res = await this.request(`auth/token`, data, "POST");
       JoblyApi.token = res.token;
-      // TODO: this
-      token = res.token;
-      // TODO: ^ not right, making var
-      console.log('token: ', token);
-      console.log('JoblyApi.token: ', JoblyApi.token);
-
-
-      // after JoblyApi.token = res.token, use JoblyApi.token to get user
-      // details using getUser fn here
-
-      this.getUser(username);
-
-      return { token };
+      const { firstName, lastName, email } = await this.getUser(username);
+      return { firstName, lastName, email };
     } catch (err) {
       return { errors: [...res.error.message] };
     }
@@ -123,8 +123,13 @@ class JoblyApi {
   /** Gets user */
 
   static async getUser(username) {
+
+
+    // FIXME: here's a fix!
+    let res;
     try {
-      const res = await this.request(`users/${username}`);
+      const { user } = await this.request(`users/${username}`);
+      return user;
     } catch (err) {
       return { errors: [...res.error.message] };
     }

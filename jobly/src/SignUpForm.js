@@ -21,10 +21,12 @@ const DEFAULT_FORM_DATA = {
  *  RoutesList -> SignUpForm -> Alert
  */
 
-function SignUpForm({ handleSignUp }) {
+// FIXME: here's a fix!
+function SignUpForm({ handleSignUp, handleErrors = [] }) {
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
-
   const { username, password, firstName, lastName, email } = formData;
+
+  console.log('handleErrors: ', handleErrors);
 
   /** Updates form values with user input */
   function handleChange(evt) {
@@ -40,6 +42,9 @@ function SignUpForm({ handleSignUp }) {
     evt.preventDefault();
     handleSignUp(formData);
     setFormData(DEFAULT_FORM_DATA);
+
+    // FIXME: here's a fix!
+    handleErrors.length = 0;
   }
 
   return (
@@ -55,17 +60,20 @@ function SignUpForm({ handleSignUp }) {
             onChange={handleChange}
             value={username}
             aria-label="Username"
+            required
           />
         </div>
         <div className="SignUpForm-password">
           <label htmlFor="SignUpForm-input-password">Password: </label>
           <input
+            type="password"
             id="SignUpForm-input-password"
             name="password"
             placeholder="Password"
             onChange={handleChange}
             value={password}
             aria-label="Password"
+            required
           />
         </div>
         <div className="SignUpForm-firstName">
@@ -77,6 +85,7 @@ function SignUpForm({ handleSignUp }) {
             onChange={handleChange}
             value={firstName}
             aria-label="firstName"
+            required
           />
         </div>
         <div className="SignUpForm-lastName">
@@ -88,6 +97,7 @@ function SignUpForm({ handleSignUp }) {
             onChange={handleChange}
             value={lastName}
             aria-label="lastName"
+            required
           />
         </div>
         <div className="SignUpForm-email">
@@ -99,8 +109,14 @@ function SignUpForm({ handleSignUp }) {
             onChange={handleChange}
             value={email}
             aria-label="Email"
+            required
           />
         </div>
+
+        {/* FIXME: here's a fix! */}
+        {handleErrors.length > 0 &&
+          <p>{handleErrors.toString()}</p>
+        }
 
         <button className="SignUpForm-signup-btn">SUBMIT</button>
 
