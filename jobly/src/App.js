@@ -1,4 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
+// FIXME: added useNavigate
 import './App.css';
 import { useState, useEffect } from "react";
 
@@ -30,6 +31,7 @@ function App() {
   const [signupLoginErrs, setSignupLoginErrs] = useState([]);
 
   console.log('signupLoginErrs: ', signupLoginErrs);
+  console.log('App userData: ', userData);
 
   /** signUp: Registers the user with the SignUpForm data.
    * On success, receives token, and stores token, user's username,
@@ -88,7 +90,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         {/* FIXME: here's a fix! */}
-        <RoutesList handleSignUp={signUp} handleLogin={login} handleErrors={signupLoginErrs}/>
+        <RoutesList handleSignUp={signUp} handleLogin={login} handleErrors={signupLoginErrs} userData={userData}/>
       </BrowserRouter>
     </div>
   );

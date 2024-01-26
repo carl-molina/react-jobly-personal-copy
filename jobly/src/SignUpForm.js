@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./SignUpForm.css";
 
+import { useNavigate } from "react-router-dom";
+
 
 const DEFAULT_FORM_DATA = {
   username: "",
@@ -22,9 +24,13 @@ const DEFAULT_FORM_DATA = {
  */
 
 // FIXME: here's a fix!
-function SignUpForm({ handleSignUp, handleErrors = [] }) {
-  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
+function SignUpForm({ handleSignUp, handleErrors = [], userData = DEFAULT_FORM_DATA}) {
+  const [formData, setFormData] = useState(userData);
   const { username, password, firstName, lastName, email } = formData;
+
+
+  // FIXME: here's a fix!
+  const navigate = useNavigate();
 
   console.log('handleErrors: ', handleErrors);
 
@@ -40,11 +46,16 @@ function SignUpForm({ handleSignUp, handleErrors = [] }) {
   /** Calls parent function and clears form */
   function handleSubmit(evt) {
     evt.preventDefault();
+
+
     handleSignUp(formData);
-    setFormData(DEFAULT_FORM_DATA);
+    setFormData(userData);
 
     // FIXME: here's a fix!
     handleErrors.length = 0;
+
+    // FIXME: here's a fix!
+    // navigate("/");
   }
 
   return (

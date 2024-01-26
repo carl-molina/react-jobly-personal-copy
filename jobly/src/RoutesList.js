@@ -20,7 +20,7 @@ import CompanyDetail from "./CompanyDetail";
 */
 
 // FIXME: here's a fix!
-function RoutesList({ handleSignUp, handleLogin, handleErrors }) {
+function RoutesList({ handleSignUp, handleLogin, handleErrors, userData }) {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
@@ -30,7 +30,7 @@ function RoutesList({ handleSignUp, handleLogin, handleErrors }) {
 
       <Route path="/login" element={<LoginForm handleLogin={handleLogin}/>} />
       {/* FIXME: here's a fix! */}
-      <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} handleErrors={handleErrors}/>} />
+      <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp} handleErrors={handleErrors} userData={userData}/>} />
       <Route path="/profile" element={<ProfileForm />} />
 
       <Route path="*" element={<Navigate to={"/"} />} />

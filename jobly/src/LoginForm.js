@@ -56,6 +56,8 @@ function LoginForm({ handleLogin }) {
         <div className="LoginForm-password">
           <label htmlFor="LoginForm-input-password">Password: </label>
           <input
+          // FIXME: added type password
+          type="password"
             id="LoginForm-input-password"
             name="password"
             placeholder="Password"
