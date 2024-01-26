@@ -66,6 +66,7 @@ function SignUpForm({ handleSignUp, handleErrors = [] }) {
         <div className="SignUpForm-password">
           <label htmlFor="SignUpForm-input-password">Password: </label>
           <input
+          // FIXME: added type password
             type="password"
             id="SignUpForm-input-password"
             name="password"
